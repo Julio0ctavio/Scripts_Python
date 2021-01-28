@@ -14,39 +14,43 @@ print(afir)
 
 # Given a set of strings, find the longest common prefix.
 # "aaa","aab","aac", "aaaaad"  ⇒ "aa"
-
-aux = 0
-string = []
-string = "aaa", "aab", "aac", "aaaaad"
-prefixes = []
+'''
+input->   "aaa", "aab", "aac", "aaaaad"
+output <- aa
+input->   "aaca", "aacb", "aacb", "aacaaad"
+output <- aac
+input->   "a1a", "a1ab", "a3ac", "a1"
+output <- a
+input->   "a1a", "a1ab", "a13ac", "a1"
+output <- a1
+'''
+strings = []
+strings = "a1a", "a1ab", "a3ac", "a1"
+count = 0
+position_letter = 0
 prefix = ""
 
-# Iniciamos el primer ciclo para verificar los strings:
-for element in string:
-    # En el segundo ciclo analizaremos la posición inicial con una posición después:
-    for i in element[1:]:
-        # Si ambas posiiones coinciden, las concatenamos en un prefix:
-        if (i == element[aux]) and aux == 0:
-            prefix = prefix + i + element[aux]
-        # Si no, se vuelve a validar la posición siguiente, después de la inicial:
-        elif(i == element[aux]):
-            prefix = prefix + i
-        # Actualizamos el auxiliar:
-        aux += 1
-        # En caso de que aux tenga el valor de la longitud del string:
-        if aux == len(element)-1:
+# Se recorrerá el vector strings:
+for word in strings:
+    # Se analizará cada elemento de la palabra:
+    for i in word:
+        prefix = prefix + i
+        position_letter += 1
+        # En este caso se propone leer el primer string:
+        for j in range((len(strings) - 1), -1, -1):
+            # Si el prefix se encuentra en la palabra [j] del vector strings:
+            if prefix in strings[j]:
+                # Contará el numero de veces que se presente en las palabras del
+                # vector strings
+                count += 1
+            else:
+                # Si no coincide, se indica el elemento encontrado:
+                prefix = prefix[0:len(prefix)-1]
+                count = 0
+                break
+        if count == 0:
             break
-    prefixes.append(prefix)
-    prefix = ""
-    aux = 0
+    if count == 0:
+        break
 
-# Ahora comparamos el conteo del prefix de cada string:
-print(prefixes)
-aux_prefix = 0
-longest = ""
-# En el ciclo anterior se considera el prefix que más veces se presenta en la lista:
-for i in prefixes[1:]:
-    if prefixes.count(i) >= prefixes.count(prefixes[aux_prefix]):
-        longest = i
-    aux_prefix = aux_prefix + 1
-print("Longest -> {}".format(longest))
+print("Longest -> {}".format(prefix))
