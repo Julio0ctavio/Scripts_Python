@@ -2,7 +2,6 @@
 en formato dd/mm/aaaa y muestra por pantalla, el día, el mes y el año.
 Adaptar el programa anterior para que también funcione cuando el día o
 el mes se introduzcan con un solo carácter.'''
-<<<<<<< HEAD
 
 import argparse
 import locale
@@ -41,5 +40,3 @@ if __name__ == "__main__":
     args = parser.parse_args()
     fecha = operation()
     print(formating_date(fecha))
-=======
->>>>>>> 17ec18820eb1d49045f8626702e9e4257e4661ab
