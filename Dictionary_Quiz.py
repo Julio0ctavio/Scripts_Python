@@ -71,8 +71,8 @@ def combine_guests(guests1, guests2):
     full_dict = {}
     full_dict.update(guests1)
     for person in guests2:
-        if(person in guests1):
-            full_dict[person] = guests1[person] + guests2[person]
+        if(person in full_dict):
+            full_dict[person] += guests2[person]
         else:
             full_dict[person] = guests2[person]
     return full_dict
