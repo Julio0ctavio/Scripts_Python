@@ -18,7 +18,6 @@ import csv
 
 def crear_dict(path):
     IBEX35 = {}
-    item = {}
     index = 0
     headers = ()
     with open(path, "r") as file:
@@ -27,6 +26,7 @@ def crear_dict(path):
             if index == 0:
                 headers = row
             else:
+                item = {}
                 count = 0
                 for col in headers:
                     item[col] = row[count]
@@ -42,11 +42,12 @@ def crear_csv(dictionary):
         writer = csv.DictWriter(file, fieldnames=fieldnames)
         writer.writeheader()
         for a, b in dictionary.items():
-            maxi = b["Maximo"].replace(",", ".")
-            mini = b["Minimo"].replace(",", ".")
-            medio = str((float(mini) + float(maxi)) / 2).replace(".", ",")
-            writer.writerow({"Minimo": b["Minimo"], "Maximo": b["Maximo"],
-                             "Medio": medio})
+            maxi = float(b["Maximo"].replace(",", "."))
+            mini = float(b["Minimo"].replace(",", "."))
+            medio = (mini + maxi) / 2
+            writer.writerow({"Minimo": "{:.2f}".format(maxi),
+                             "Maximo": "{:.2f}".format(mini),
+                             "Medio": "{:.2f}".format(medio)})
 
 
 dict = crear_dict("cotizacion.csv")
